@@ -1,0 +1,938 @@
+<%@ Page Language="C#" validateRequest="false" AutoEventWireup="true" CodeBehind="sales_use.aspx.cs" Inherits="JJLG.WCFService.Technique.sales_use" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+   <meta http-equiv="Content-Type" content="text/html; charset="gb2312" />
+		<script src="js/jquery.min.js"></script>
+		<title>销售专用</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background: #CEEBCD;
+			}
+			.icon_goods_info{
+				background: url(img/icon_goods_info.png) no-repeat;
+				background-size: 547px 148px;
+			}
+			.bgcolor{
+				background: white;
+			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.cb{
+				clear: both;
+			}
+			nav{
+				height: 60px;
+			}
+			.nav_img_box{
+				margin: 10px;
+				height: 40px;
+				border-right: 1px solid #DCDCDC;
+				width: 30%;
+			}
+			.nav_p_box{
+				margin-top: 28px;
+				width: 60%;
+			}
+			.logo_img{
+				margin: 0 15px;
+				width: 126px; 
+				height: 40px;
+    			background-position: -214px -90px;
+			}
+			.goods_show_wrap{
+				width: 960px;
+				margin: 30px auto;
+				overflow: hidden;
+			}
+			.goods_show_box{
+				overflow: hidden;
+				margin: 20px 35px;
+			}
+			.goods_show_left{
+				width: 350px;
+				overflow: hidden;
+			}
+			.goods_show_left li:hover{
+				border: 1px solid #4ba87b;
+			}
+			.goods_show_left_top{
+				/*width: 302px;
+				height: 302px;*/
+				width: 300px;
+				height: 300px;
+				border: 1px solid #DCDCDC;
+			}
+			.goods_show_left_top img{
+				width: 300px;
+				height: 300px;
+			}
+			.goods_show_box ul{
+				margin: 10px 0;
+				list-style: none;
+				overflow: hidden;
+			}
+			.goods_show_box ul li{
+				margin: 8px 8px 8px 0;
+				border: 1px solid #DCDCDC;
+				float: left;
+				width: 50px;
+				height: 50px;
+				/*width: 52px;
+				height: 52px;*/
+			}
+			.goods_show_box li img{
+				width: 50px;
+				height: 50px;
+			}
+			.goods_info_right{
+				
+			}
+			.goods_info_title h3{
+				margin: 25px 0;
+				font-size: 20px;
+			}
+			.jjlg_price_box{
+				margin: 10px 0;
+				width: 527px;
+				height: 60px;
+				background-position: -10px -10px;
+			}
+			.jjlg_price{
+				margin: 10px;
+			}
+			.jjlg_price p{
+				margin: 0;
+				line-height: 58px;
+				font-size: 16px;
+				color: #666666;
+			}
+			.jjlg_price p span{
+				font-size: 24px;
+				color: #da4e2e;
+			}
+			.goods_additional_info_title{
+				width: 180px;
+				margin: 8px;
+				font-size: 14px;
+				color: #666666;
+			}
+			.goods_additional_info_val{
+				margin: 8px;
+				font-size: 14px;
+				color: #333333;
+			}
+			#nav_title{
+				font-size: 18px;
+				color: #1A3413;
+				margin: auto 8px;
+			}
+			
+			.product_detail_wrap{
+				position: relative;
+				width: 960px;
+				margin: auto;
+				overflow: hidden;
+			}
+			#tab_Bar{
+				background-color: #f2f2f2;
+				color: #333333;
+				font-size: 16px;
+				font-weight: bold;
+			}
+			#tab_Bar ul{
+				height: 52px;
+			}
+			#tab_Bar li{
+				line-height: 50px;
+				box-sizing: border-box;
+				text-align: center;
+				list-style: none;
+				float: left;
+				width: 150px;
+				font-size: 16px;
+				color: #333333;
+				border: 1px solid #DCDCDC;
+			}
+			#tab_Bar li.tab_selected{
+				background: white;
+				border: none;
+				border-top: 2px solid #4ba87b;
+			}
+			.sales_special_use_box{
+			}
+			.sales_special_use_box h4{
+				margin: 25px 0;
+				font-size: 18px;
+				color: #4ba87b;
+			}
+			.sales_special_use{
+				margin: 25px 20px;
+				width: 700px;
+			}
+			.sales_special_use img{
+				display: block;
+				margin: auto;
+				text-align: center;
+			}
+			.sales_special_use p{
+				padding: 0 5px;
+				font-size: 16px;
+				color: #333333;
+			}
+			.sales_special_use_floor{
+				width: 220px;
+				overflow: hidden;
+				background: #f2f2f2;
+			}
+			.sales_special_use_title_floor{
+				width: 218px;
+				background: #f2f2f2;
+			}
+			.sales_special_use_title_floor ul{
+				list-style: none;
+				/*padding: 0 10px;*/
+			}
+			.sales_special_use_title_floor li{
+				position: relative;
+				/*float: left;
+				width: 100%;*/
+			}
+			.sales_special_use_title_floor a{
+				
+				color: #333333;
+				padding: 5px 10px;
+				line-height: 50px;
+				text-decoration: none;
+				display: block;
+				vertical-align: middle;
+			}
+			.title_choose{
+				background: #CEEBCD;
+			}
+			.icon_choose{
+				position: absolute;
+				font-size: 20px;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				top: 20px;
+				left: -10px;
+				color: #CEEBCD;
+				font-family: "\5b8b\4f53";
+			}
+			table
+			{
+			    border-collapse:collapse;
+			    border-spacing: 0;
+			    }
+			
+			/* 模态框 */
+			.bg_model_1,
+			.bg_model_2{
+				position:absolute;
+				top:0%;
+				left:0%;
+				background:rgba(0,0,0,0.3);
+				width:100%;
+				height:100%;
+				position:fixed;
+				z-index:9999;
+				display: none;
+			}
+			.bg_model_1 .product_photo_box{
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				margin: auto;
+				width: 560px;
+				height: 450px;
+				box-shadow: 0px 0px 6px 3px #aaa;
+				background: white;
+				
+			}
+			.bg_model_1 img{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				margin: auto;
+				max-height: 450px;
+				max-width: 560px;
+			}
+			#icon_close{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				width: 20px;
+				height: 20px;
+    			background-position: -360px -90px;
+			}
+			
+			
+			.bg_model_2 .open_model{
+				
+				position: absolute;
+				top: 280px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 700px;
+				overflow: hidden;
+				box-shadow: 0px 0px 6px 3px #aaa;
+				background: white;
+				padding: 20px;
+			}
+			
+			.faq_box_title{
+				margin: 20px;
+			}
+			.faq_box_title span{
+				margin: 10px 50px;
+				color: #333333;
+				font-size: 16px;
+			}
+			.faq_box_title input,
+			.faq_box_title select{
+				line-height: 30px;
+				height: 35px;
+				border: 1px solid #DCDCDC;
+				margin: 0 10px;
+				padding: 0 5px;
+				border-radius: 6px;
+				background: #F2F2F2;
+				outline: none;
+				font-size:16px;
+			}
+			#listClassify
+			{
+				width: 100px;
+			    }
+			.faq_box_title select option{
+				appearance:none;
+				background: #F2F2F2;
+				border-radius: 15px;
+			}
+			#btn_select{
+				margin: 0 30px;
+				height: 35px;
+				width: 80px;
+				background: white;
+				border: 1px #DCDCDC solid;
+				border-radius: 5px;
+				outline: none;
+				color: #333333;
+				font-size: 16px;
+			}
+			.faq_box_content table{
+				margin: 25px;
+				border: solid 1px #DCDCDC;
+				
+				text-align: justify;
+			}
+			.faq_box_content table th{
+				color: #333333;
+				font-size: 16px;
+				
+				text-align: center;
+				background: #F2F2F2;
+			}
+			.faq_box_content th,
+			.faq_box_content td{
+				padding: 8px;
+				border: 1px #DCDCDC solid;
+			}
+			
+			/*.sales_special_use_box,*/
+			.product_special_use_box,
+			.faq_box_wrap,
+			.product_words_box
+			{
+				display: none;
+			}
+			
+			
+			
+			
+			
+			
+			.product_words_li{
+				height: 60px;
+				margin: 20px;
+				
+			}
+			.product_words_li li{
+				list-style: none;
+				font-size: 16px;
+				font-weight: bolder;
+				float: left;
+				width: 45%;
+				padding:10px;
+			}
+			.product_words_li_first span
+			{
+			    text-align:center;
+				display: block;
+				float: right;
+			}
+			.product_words_li_more span
+			{
+			    text-align:center;
+				display: block;
+				float: left;
+			}
+			
+			.product_words_choose{
+				color: #4BA87B;
+				border-bottom: #4BA87B solid 3px;
+			}
+			.product_words_content .first_words,
+			.product_words_content .more_words{
+				display: none;
+			}
+			
+			
+			.title_floor{
+				color: #333333;
+				padding: 5px 10px;
+				line-height: 50px;
+				text-decoration: none;
+				display: block;
+				vertical-align: middle;
+			}
+			#btn_query
+			{
+			    width:80px;    
+			}
+			
+		</style>
+	</head>
+	<body>
+		
+		<form id="form1" runat="server" onsubmit="return false">
+		
+		<!-- 头部标题 -->
+		<nav class="bgcolor" id="top">
+			<div class="nav_img_box fl">
+				<div class="icon_goods_info logo_img fr"></div>
+			</div>
+			<div class="nav_p_box fl">
+				<p id="nav_title">产品介绍</p>
+			</div>
+			<div class="cb"></div>
+		</nav>
+		
+		<!-- 商品展示框 -->
+		<div class="goods_show_wrap bgcolor">
+			<div class="goods_show_box">
+				<div class="goods_show_left fl">
+					<div class="goods_show_left_top">
+						<img src=""/>
+					</div>
+					<ul runat="server" id="ul_img_box"></ul>
+				</div>
+				<div class="goods_info_right fl">
+					
+					<!-- 商品标题 -->
+					<div class="goods_info_title">
+						<h3 runat="server" id="pr_name"></h3>
+					</div>
+					<!-- 商品价格 -->
+					<div class="jjlg_price_box icon_goods_info">
+						<div class="jjlg_price">
+							<p class="fl">乐购价：<span>￥<span runat="server" id="jjlg_price"></span></span></p>
+						</div>
+					</div>
+					<!-- 商品附加信息 -->
+					<div class="goods_additional_info_box">
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">生产日期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="production_date"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">有效日期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="valid_date"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">保质期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="shelf_life"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">海关备案编码：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="hg_code" ></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">可销售库存：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="enable_sales_num"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">实际库存：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="acture_sales_num"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">制单提审未发货数量：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="wait_send_num"></div>
+							<div class="cb"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- 商品信息展示框 -->
+		<div class="product_detail_wrap bgcolor" runat="server">
+			<!-- Tab切换 -->
+			<div id="tab_Bar">
+				<ul>
+					<li class="tab_selected" id="1">销售专用</li>
+					<li id="2">产品专用</li>
+					<li id="3">常见问题</li>
+					<li id="4">产品话术</li>
+				</ul>
+			</div>
+			
+			
+			<div class="tab_change_box" runat="server">
+				
+			
+			
+				<!-- 销售专用 -->
+				<div class="sales_special_use_box" data-li-id="1" runat="server">
+					<div class="sales_special_use fl" runat="server" id="sales_special_use">
+						<h4 id="">一、产品标签信息</h4>
+						<img src="img/微信图片_20171110155950.png"/>
+						<h4 id="">二、产品图片与标签</h4>
+						<img src="http://hqh.hk/images/201609/1473329286782255174.jpg"/>
+						<img src="img/微信图片_20171110160815.png"/>
+						<img src="img/微信图片_20171110160822.png"/>
+						<h4 id="">三、厂家介绍</h4>
+						<p>健康优品 信心之选<br />
+							美国信心药业独具一格地将中、西草药和现代生物制药科技巧妙融合，成为一家综合型的植物药业集团。于1975年创建于美国纽约州，热销全美40多年。
+							<br />在美国纽约州、新泽西州和犹他州拥有总面积超过100万平方英尺研发和制药基地，全球拥有1300多名雇员，旗下的150多种产品，25个著名品牌，远销21个国家和地区，是当之无愧的全球植物药业领导者。同时也是全美健康协会会员。
+							<br />1988年集团的三大生产基地，均被FDA验收合格和注册登记
+							<br />2005年连续四年被“保健品消费者指南”评为消费者值得信赖的品牌
+							<br />2008年信心药业在保健食品质量安全审核中，被知名国际保健食品行业协会AIB授予“优秀”级别
+						</p>
+						<h4 id="">四、产品优势（卖点）</h4>
+						<p>1、原料优势：
+							<br />①“固他命”中的小分子软骨素，吸收率高；
+							<br />②“固他命”中的氨基葡萄糖，利用国际先进“缓释技术”，保证有效成分在小肠缓慢释放，以使有效成分充分吸收；
+							<br />③“固他命”中的姜黄提取物是利用了专利提取工艺，保留了必须成分姜黄素和95%的化学结构相似的类姜黄素，不但提取的浓度及吸收率较其它产品高，而且还便于机体吸收利用。临床试验表明，它的有效率是其他姜黄有效率的8倍。
+							<br />2、配方优势：
+							<br />市面一般骨关节产品要不只修复软骨或者只能止疼，均属于治标不治本。信心药业“固他命”缓释复合片集合六种骨关节强效配方，从快速止疼—修复再生软骨—增强骨质三个方面，根本上解决因关节软骨的磨损及老化造成的一切骨关节问题。
+						</p>
+						<h4 id="">五、产品主要功效</h4>
+						<p>
+							1、减轻关节疼痛以及消除关节肿胀；
+							<br />2、增加关节灵活性；
+							<br />3、修复关节软骨、帮助软骨再生；
+							<br />4、提高骨密度，防治骨质疏松。
+						</p>
+						<h4 id="">六、产品功效机理说明/产品佐证</h4>
+						<p>
+							1、氨基葡萄糖盐酸盐：
+							<br />能促进人体粘多糖的合成，提高关节滑液的粘性，能改善关节软骨的代谢；氨基葡萄糖盐酸盐是医学界视为迄今为止仅有的可以根本治疗骨关节疾病的物质，氨基葡萄糖应与硫酸软骨素配合使用，具有止痛，促进软骨再生的功效，可以从根本改善关节问题。（来自百度百科）
+							
+							<br /><br />2、硫酸软骨素：
+							<br />（1）在医学上主要的应用途径是作为治疗关节疾病的药品，与氨基葡萄糖配合使用，具有止痛，促进软骨再生的功效，可以从根本改善关节问题：能将水分吸入蛋白多糖分子内，使软骨变厚，并增加关节内的滑液量。软骨素的重要功能之一就是作为输送管道，把重要的氧供和营养素输送至关节，帮助清除关节内的废物，同时把二氧化碳和废物加以排除。由于关节软骨并无血液供应，因此所有的充氧、滋养及润滑作用皆来自滑液。
+							<br />（2）抑制COX-2的活性，以制止关节发炎。
+							
+							<br /><br />3、玻尿酸
+							<br />又叫透明质酸，是关节滑液的主要成分之一。
+							
+							<br /><br />4、白柳皮提取物
+							<br />水杨甙被认为是白柳皮抗发炎和减轻疼痛能力的来源。白柳皮的止痛能力通常生效较慢但比普通阿斯匹林产品效果持续的时间长。一次试验发现一类含有100ng水杨甙的草药化合物制品在连续服用两个月后可有效提高对关节炎患者的止痛能力。另一试验发现每天摄入1360mg白柳皮提取物（含有240mg水杨甙）两星期后可对治疗关节部位疼痛和/或关节炎有更好的功效。
+							
+							<br /><br />5、乳香树脂提取物
+							<br />用于风湿痹证，肢节疼痛；外伤瘀肿作痛。
+							
+							<br /><br />6、姜黄根提取物
+							<br />现代研究发现姜黄素可以抑制炎症反应、抗氧化、抗类风湿的作用。2006年11月，美国《关节炎与风湿病》期刊一篇文章指出，姜黄素可以防止关节肿大、关节炎，对心血管疾病、癌症等又有效。
+							
+							<br /><br />2009年美国“Supply Side Scientific”（供应方科学协会）授予“固他命”“最佳功效”奖
+						</p>
+						<h4 id="">七、适宜人群</h4>
+						<p>18岁以上成年、中老年人群：
+							<br />1、各种关节疾病患者（肩周炎、手足关节炎、骨质增生、腰间盘突出、腰酸背痛、颈椎病、网球肘等）；
+							<br />2、中老年预防骨骼退行性改变者，更年期骨质流失，骨质疏松者；
+						</p>
+						<h4 id="">八、注意事项</h4>
+						<p>
+							1.孕妇及哺乳期妇女或正在服用其他药物，在使用前咨询你的医生；如有任何不良反应，请停止使用，并咨询医生。
+							<br />2.对贝类成分（虾,蟹,龙虾,小龙虾）过敏的人慎用。
+						</p>
+						<h4 id="">九、服用方法</h4>
+						<p>
+							首次服用起7日内，每日2次，每次2片；第8日起每日2次，每次1-2片。
+						</p>
+						<h4 id="">十、产品搭配服用建议</h4>
+						<p>
+							1）骨质疏松，腰背酸痛、身体变矮等：固他命复合片+信心药业骨胶原
+							<br />固他命含有骨关节需要的多种营养元素，可以修复关节软骨，消炎止痛，增加关节的灵活度；骨胶原是关节软骨的重要组成部分，粘附钙，防止钙流失，保持骨骼的韧性；对于保持骨骼的韧性、防止骨质疏松、人体运动的协调性有很大帮助。
+							
+							<br /><br />2）老年性骨关节退行性改变：固他命复合片+“倍力柠”复合胶囊
+							<br />预防骨关节退行性改变，防治骨质疏松，预防骨折的发生。
+						</p>
+						<h4 id="">十一、生产批号及保质期</h4>
+						<p>
+							见瓶身：Lot No./Exp.
+						</p>
+						<h4 id="">十二、定价</h4>
+						<p>
+							会员价：299元/瓶
+						</p>
+					</div>
+					<div class="sales_special_use_floor fl">
+						<div class="sales_special_use_title_floor">
+							<ul>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 产品专用 -->
+				<div class="product_special_use_box" data-li-id="2">
+					<div id="product_special_use" runat="server">
+                    
+                    </div>
+
+
+
+				</div>
+				
+				<!-- 常见问题 -->
+				<div class="faq_box_wrap" data-li-id="3">
+					<div class="faq_box">
+						<div class="faq_box_content">
+                            <div class="faq_box_title">
+                                <span>提问
+                                    <input type="text" name="" id="keyTxt" runat="server" value="" placeholder="请输入要提问的问题关键字" />
+                                </span>
+                                <span>分类 
+                                    <asp:DropDownList ID="listClassify" runat="server" 
+                                    DataTextField="DATA_NAME" DataValueField="DATA_CODE" AutoPostBack="True" 
+                                    onselectedindexchanged="listClassify_SelectedIndexChanged" 
+                                    ViewStateMode="Enabled">
+                                    </asp:DropDownList>
+                                </span>
+						        <asp:Button ID="btn_query" runat="server" Text="查询" />
+                            </div>
+
+                            <div id="table_box" runat="server">
+                                <%--<table>
+                                    <tr id="table_header">
+                                        <th width='80px'>序号</th>
+                                        <th width='80px'>分类</th>
+                                        <th width='200px'>提问</th>
+                                        <th>答案</th>
+                                    </tr>
+                                </table>--%>
+                            </div>
+						</div>
+					
+					</div>
+				</div>
+				
+				<!-- 产品话术 -->
+				<div class="product_words_box" data-li-id="4">
+					<div class="product_words_li" id="product_words_li">
+						<ul>
+							<li class="product_words_li_first" id = "01"><span>首次购买话术</span></li>
+							<li class="product_words_li_more" id = "02"><span>多次购买话术</span></li>
+						</ul>
+					</div>
+					
+					<div class="product_words_content">
+						<div class="first_words" data-content-id = "1" runat="server" id="first_words">
+							首次话术
+						</div>
+						<div class="more_words" data-content-id = "2" runat="server" id="more_words">
+							多次话术
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 模态框 -->
+		<div class="bg_model_1">
+			<div class="product_photo_box">
+				<img src=""/>
+				<i id="icon_close" class="icon_goods_info"></i>
+			</div>
+		</div>
+		
+        <div class="bg_model_2">
+			<div class="open_model">
+				
+			</div>
+		</div>
+
+	    </form>
+		
+	</body>
+</html>
+<script type="text/javascript">
+
+
+
+
+    ///ajax事件
+    $("#btn_query").on("click", function () {
+        selectid = $("#listClassify").val();
+        console.log(selectid);
+        $.ajax({
+            type: "post",
+            url: "sales_use.aspx?prId=" + localStorage.prID + "&selectid=" + selectid,
+            dataType: "json",
+            data: { "action": "me" },
+            success: function (data) {
+                $("#table_box").val("");
+                console.log(data);
+                var str = "";
+                if (data.PR_QUE_ID == -1) {
+                    str += '<p style="text-align:center;">暂无数据</p>';
+                }
+                else {
+                    str = '<table><tr id="table_header"><th width="80px">序号</th><th width="80px">分类</th><th width="250px">提问</th><th width="490px">答案</th></tr>';
+                    var intercept = "";
+                    for (var i = 0; i < data.length; i++) {
+                        intercept = data[i].PR_QUE_ANSWER.toString();
+                        intercept.substring(0, 10);
+                        console.log(intercept);
+                        str += '<tr><td style="text-align:center;">' + (i + 1) + '</td><td style="text-align:center;">' + data[i].PR_QUE_SORT_NAME + '</td><td>' + data[i].PR_QUE_CONTENT + '</td><td class="faq_box_answer">' + intercept + '<span id="answer_open" class="answer_open" style="float: right;color: #4BA87B;font-size: 14px;">展开</span></td></tr>';
+                    }
+                }
+
+                str += '</table>';
+                $("#table_box").html(str);
+            },
+            error: function (xmlReq, err, c) {
+                //                    alert(err);
+                console.log("error");
+            }
+        });
+    })
+
+
+
+    window.onload = function () {
+        var left, height;
+        changeWindowSize();
+
+        
+
+
+        var selectid = 0;
+
+        var flag = false;
+
+        if (!flag) {
+            aaa();
+        }
+
+        function aaa() {
+
+            var arr = $('.sales_special_use').find('h4').map(function (index, ele) {
+                return ele.innerHTML;
+            }).get();
+
+            var aaa = "";
+            for (var i = 0; i < arr.length; i++) {
+                var j = i + 1;
+                aaa += '<li><a href="#f' + j + '">' + arr[i] + '</a>';
+            }
+            $(".sales_special_use_title_floor ul").html(aaa)
+            $(".sales_special_use_title_floor ul li a").addClass("title_floor")
+            flag = true;
+            console.log(aaa);
+        }
+
+
+        //给每个标题赋ID
+        setFloorID();
+        function setFloorID() {
+            var t = document.getElementsByTagName("h4");
+            for (var i = 0; i < t.length; i++) {
+                var k = i + 1;
+                t[i].id = "f" + k;
+            }
+        }
+
+        var prID = parseInt(GetQueryString("prId"));
+        if (prID != 0) {
+            localStorage.prID = prID;
+        }
+
+        //采用正则表达式获取地址栏参数
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+       
+
+
+        //模态框2
+//        console.log($(".faq_box_wrap .faq_box .faq_box_content #table_box tr td.faq_box_answer span.answer_open"))
+        $(document).on("click", "span.answer_open", function () {
+            var htmltext = $(this).parent().html();
+            $(".bg_model_2 .open_model").html(htmltext)
+            $(".bg_model_2 .open_model").find(".answer_open").html("收起").removeClass("answer_open").addClass("answer_close");
+
+            $(".bg_model_2").fadeIn();
+
+            $(".bg_model_2 .answer_close").on("click", function () {
+                $(this).parent().parent().fadeOut();
+            })
+        })
+
+
+        //相册大图显示相册小图的第一个
+        $(".goods_show_left_top img").attr("src", $(".goods_show_left li:eq(0) img").attr("src"));
+
+        //Tab切换事件
+        $("#tab_Bar li").on("click", function () {
+            $(this).addClass("tab_selected");
+            $(this).siblings().removeClass("tab_selected");
+            var num = parseInt($(this).attr("id"));
+            tabChange(num);
+        })
+
+        //tab切对应DIV切换
+        function tabChange(num) {
+            var id = document.getElementById("tab_Bar");
+            var param = id.getElementsByTagName("li");
+            console.log(param[num - 1].id)
+            if (param[num - 1].id == num) {
+                $('[data-li-id="' + num + '"]').css("display", "block");
+                console.log($('[data-li-id="' + num + '"]'));
+                $('[data-li-id="' + num + '"]').siblings().css("display", "none");
+                return;
+            }
+        }
+
+
+
+        //话术对应Tab切换
+        $(".product_words_li li").on("click", function () {
+            $(this).find("span").addClass("product_words_choose");
+            $(this).siblings().find("span").removeClass("product_words_choose");
+            console.log($(this))
+            var num = parseInt($(this).attr("id"));
+            tabWordsChange(num);
+        })
+
+        //话术
+        function tabWordsChange(num) {
+            var id = document.getElementById("product_words_li");
+            var paramLiTab = id.getElementsByTagName("li");
+            console.log(num)
+            console.log(paramLiTab[num - 1].id)
+            if (parseInt(paramLiTab[num - 1].id) == num) {
+                $('[data-content-id="' + num + '"]').css("display", "block");
+                console.log($('[data-content-id="' + num + '"]'));
+                $('[data-content-id="' + num + '"]').siblings().css("display", "none");
+                return;
+            }
+        }
+
+
+
+        //窗口大小改变事件
+        $(window).resize(function () {
+            changeWindowSize();
+        })
+
+        //富文本编辑器距浏览器左边窗口宽度
+        function changeWindowSize() {
+            //  		var right = $(".product_detail_wrap").offset().left;	
+            //	    	$(".sales_special_use_title_floor").css("right",right);
+            height = $(".product_detail_wrap").css("height");
+            $(".sales_special_use_floor").css("height", height)
+            left = (parseInt($(".sales_special_use_title_floor").offset().left) - 200) + "px";
+            //	    	($(".sales_special_use_title_floor").offset().left)-200px;   	
+            //	    	$(".sales_special_use_floor").css("right",0)
+        }
+
+
+
+
+        //当前楼层
+        var innerHTML = '<div class="icon_choose">◆</div>';
+
+        //楼层点击切换样式
+        $(".sales_special_use_title_floor li").on("click", function () {
+            $(this).addClass("title_choose");
+            $(this).find("a").append(innerHTML);
+            $(this).siblings().removeClass("title_choose");
+            $(this).siblings().find(".icon_choose").remove();
+        })
+
+    }
+
+    var htmlHeight, scrollTop, heightTop, bottomHeight;
+
+    //楼层事件
+    $(window).scroll(function () {
+        htmlHeight = $(window).height()
+        scrollTop = $(window).scrollTop();
+        heightTop = $(".sales_special_use").offset().top;
+        bottomHeight = $(".product_detail_wrap").offset().top;
+        var tab_Bar_height = $("#tab_Bar ul").height();
+//        console.log("scrollTop:" + scrollTop);
+//        console.log("bottomHeight:" + bottomHeight);
+        if (scrollTop > bottomHeight) {
+            $(".sales_special_use_title_floor").css("position", "fixed");
+            $(".sales_special_use_title_floor").css("top", "0");
+        }
+        else {
+            $(".sales_special_use_title_floor").css("position", "relative");
+            $(".sales_special_use_title_floor").css("top", "");
+            $(".sales_special_use_title_floor li").removeClass("title_choose").find(".icon_choose").remove();
+        }
+    });
+
+
+    //点击相册小图显示在相册大图
+    $(".goods_show_left li").on("click", function () {
+        $(".goods_show_left_top img").attr("src", $(this).find("img").attr("src"));
+    })
+
+    //点击相册大图弹出模态框
+    $(".goods_show_left_top").on("click", function () {
+        $(".bg_model_1 img").attr("src", $(this).find("img").attr("src"));
+        $(".bg_model_1").fadeIn();
+    })
+
+    $(".bg_model_1 i").on("click", function () {
+        $(".bg_model_1").fadeOut();
+    })
+
+
+
+</script>
+

@@ -1,0 +1,954 @@
+<%@ Page Language="C#" validateRequest="false" AutoEventWireup="true" CodeBehind="sales_use.aspx.cs" Inherits="JJLG.WCFService.Technique.sales_use" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+   <meta http-equiv="Content-Type" content="text/html; charset="gb2312" />
+		<script src="js/jquery.min.js"></script>
+		<title>销售专用</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			body{
+				background: #CEEBCD;
+			}
+			.icon_goods_info{
+				background: url(img/icon_goods_info.png) no-repeat;
+				background-size: 547px 148px;
+			}
+			.bgcolor{
+				background: white;
+			}
+			.fl{
+				float: left;
+			}
+			.fr{
+				float: right;
+			}
+			.cb{
+				clear: both;
+			}
+			nav{
+				height: 60px;
+			}
+			.nav_img_box{
+				margin: 10px;
+				height: 40px;
+				border-right: 1px solid #DCDCDC;
+				width: 30%;
+			}
+			.nav_p_box{
+				margin-top: 28px;
+				width: 60%;
+			}
+			.logo_img{
+				margin: 0 15px;
+				width: 126px; 
+				height: 40px;
+    			background-position: -214px -90px;
+			}
+			.goods_show_wrap{
+				width: 960px;
+				margin: 30px auto;
+				overflow: hidden;
+			}
+			.goods_show_box{
+				overflow: hidden;
+				margin: 20px 35px;
+			}
+			.goods_show_left{
+				width: 350px;
+				overflow: hidden;
+			}
+			.goods_show_left li:hover{
+				border: 1px solid #4ba87b;
+			}
+			.goods_show_left_top{
+				/*width: 302px;
+				height: 302px;*/
+				width: 300px;
+				height: 300px;
+				border: 1px solid #DCDCDC;
+			}
+			.goods_show_left_top img{
+				width: 300px;
+				height: 300px;
+			}
+			.goods_show_box ul{
+				margin: 10px 0;
+				list-style: none;
+				overflow: hidden;
+			}
+			.goods_show_box ul li{
+				margin: 8px 8px 8px 0;
+				border: 1px solid #DCDCDC;
+				float: left;
+				width: 50px;
+				height: 50px;
+				/*width: 52px;
+				height: 52px;*/
+			}
+			.goods_show_box li img{
+				width: 50px;
+				height: 50px;
+			}
+			.goods_info_right{
+				
+			}
+			.goods_info_title h3{
+				margin: 25px 0;
+				font-size: 20px;
+			}
+			.jjlg_price_box{
+				margin: 10px 0;
+				width: 527px;
+				height: 60px;
+				background-position: -10px -10px;
+			}
+			.jjlg_price{
+				margin: 10px;
+			}
+			.jjlg_price p{
+				margin: 0;
+				line-height: 58px;
+				font-size: 16px;
+				color: #666666;
+			}
+			.jjlg_price p span{
+				font-size: 24px;
+				color: #da4e2e;
+			}
+			.goods_additional_info_title{
+				width: 180px;
+				margin: 8px;
+				font-size: 14px;
+				color: #666666;
+			}
+			.goods_additional_info_val{
+				margin: 8px;
+				font-size: 14px;
+				color: #333333;
+			}
+			#nav_title{
+				font-size: 18px;
+				color: #1A3413;
+				margin: auto 8px;
+			}
+			
+			.product_detail_wrap{
+				position: relative;
+				width: 960px;
+				margin: auto;
+				overflow: hidden;
+			}
+			#tab_Bar{
+				background-color: #f2f2f2;
+				color: #333333;
+				font-size: 16px;
+				font-weight: bold;
+			}
+			#tab_Bar ul{
+				height: 52px;
+			}
+			#tab_Bar li{
+				line-height: 50px;
+				box-sizing: border-box;
+				text-align: center;
+				list-style: none;
+				float: left;
+				width: 150px;
+				font-size: 16px;
+				color: #333333;
+				border: 1px solid #DCDCDC;
+			}
+			#tab_Bar li.tab_selected{
+				background: white;
+				border: none;
+				border-top: 2px solid #4ba87b;
+			}
+			.sales_special_use_box{
+			}
+			.sales_special_use_box h4,
+			.product_special_use_box h4{
+				margin: 25px 0;
+				font-size: 18px;
+				color: #4ba87b;
+			}
+			.sales_special_use,
+			.product_special_use{
+				margin: 25px 20px;
+				width: 700px;
+			}
+			.sales_special_use img{
+				display: block;
+				margin: auto;
+				text-align: center;
+			}
+			.sales_special_use p{
+				padding: 0 5px;
+				font-size: 16px;
+				color: #333333;
+			}
+			.sales_special_use_floor
+			{
+				width: 220px;
+				overflow: hidden;
+				background: #f2f2f2;
+			}
+			.product_special_use_floor
+			{
+			    width: 220px;
+			    background: #f2f2f2;
+			}
+			.sales_special_use_title_floor,
+			.product_special_use_title_floor
+			{
+			    height:100%;
+				width: 218px;
+				background: #f2f2f2;
+			}
+			.sales_special_use_title_floor ul,
+			.product_special_use_title_floor ul{
+				list-style: none;
+				/*padding: 0 10px;*/
+			}
+			.sales_special_use_title_floor li,
+			.product_special_use_title_floor li{
+				position: relative;
+				margin-right: 2px;
+				/*float: left;
+				width: 100%;*/
+			}
+			.sales_special_use_title_floor a,
+			.product_special_use_title_floor a{
+				
+				color: #333333;
+				padding: 5px 10px;
+				line-height: 50px;
+				text-decoration: none;
+				display: block;
+				vertical-align: middle;
+			}
+			.title_choose{
+				background: #CEEBCD;
+			}
+			.icon_choose{
+				position: absolute;
+				font-size: 20px;
+				width: 20px;
+				height: 20px;
+				line-height: 20px;
+				top: 20px;
+				left: -10px;
+				color: #CEEBCD;
+				font-family: "\5b8b\4f53";
+			}
+			table
+			{
+			    border-collapse:collapse;
+			    border-spacing: 0;
+			    }
+			
+			/* 模态框 */
+			.bg_model_1,
+			.bg_model_2{
+				position:absolute;
+				top:0%;
+				left:0%;
+				background:rgba(0,0,0,0.3);
+				width:100%;
+				height:100%;
+				position:fixed;
+				z-index:9999;
+				display: none;
+			}
+			.bg_model_1 .product_photo_box{
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				margin: auto;
+				width: 560px;
+				height: 450px;
+				box-shadow: 0px 0px 6px 3px #aaa;
+				background: white;
+				
+			}
+			.bg_model_1 img{
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				margin: auto;
+				max-height: 450px;
+				max-width: 560px;
+			}
+			#icon_close{
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				width: 20px;
+				height: 20px;
+    			background-position: -360px -90px;
+			}
+			
+			
+			.bg_model_2 .open_model{
+				
+				position: absolute;
+				top: 280px;
+				left: 0;
+				right: 0;
+				margin: auto;
+				width: 700px;
+				overflow: hidden;
+				box-shadow: 0px 0px 6px 3px #aaa;
+				background: white;
+				padding: 20px;
+			}
+			
+			.faq_box_title{
+				margin: 20px;
+			}
+			.faq_box_title span{
+				margin: 10px 50px;
+				color: #333333;
+				font-size: 16px;
+			}
+			.faq_box_title input,
+			.faq_box_title select{
+				line-height: 30px;
+				height: 35px;
+				border: 1px solid #DCDCDC;
+				margin: 0 10px;
+				padding: 0 5px;
+				border-radius: 6px;
+				background: #F2F2F2;
+				outline: none;
+				font-size:16px;
+			}
+			#listClassify
+			{
+				width: 100px;
+			    }
+			.faq_box_title select option{
+				appearance:none;
+				background: #F2F2F2;
+				border-radius: 15px;
+			}
+			#btn_select{
+				margin: 0 30px;
+				height: 35px;
+				width: 80px;
+				background: white;
+				border: 1px #DCDCDC solid;
+				border-radius: 5px;
+				outline: none;
+				color: #333333;
+				font-size: 16px;
+			}
+			.faq_box_content table{
+				margin: 25px;
+				border: solid 1px #DCDCDC;
+				
+				text-align: justify;
+			}
+			.faq_box_content table th{
+				color: #333333;
+				font-size: 16px;
+				
+				text-align: center;
+				background: #F2F2F2;
+			}
+			.faq_box_content th,
+			.faq_box_content td{
+				padding: 8px;
+				border: 1px #DCDCDC solid;
+			}
+			
+			/*.sales_special_use_box,*/
+			.product_special_use_box,
+			.faq_box_wrap,
+			.product_words_box
+			{
+				display: none;
+			}
+			
+			
+			
+			
+			
+			
+			.product_words_li{
+				height: 60px;
+				margin: 20px;
+				
+			}
+			.product_words_li li{
+				list-style: none;
+				font-size: 16px;
+				font-weight: bolder;
+				float: left;
+				width: 45%;
+				padding:10px;
+			}
+			.product_words_li_first span,
+			.product_words_li_more span
+			{
+			    text-align:center;
+			    margin:0 130px;
+				/*display: block;
+				float: right;*/
+			}
+			
+			.product_words_choose{
+				color: #4BA87B;
+				border-bottom: #4BA87B solid 3px;
+			}
+			.product_words_content .first_words,
+			.product_words_content .more_words{
+				display: none;
+			}
+			
+			
+			.title_floor{
+				color: #333333;
+				padding: 5px 10px;
+				line-height: 50px;
+				text-decoration: none;
+				display: block;
+				vertical-align: middle;
+			}
+			#btn_query
+			{
+			    width:80px;    
+			}
+			
+			
+			
+			.open_more{
+				background: white;
+				width: 700px;
+				overflow: hidden;
+				border: 1px solid #DCDCDC;
+				box-shadow: 0px 0px 20px 0px #888888;
+				position: absolute;
+				right: 10px;
+				bottom: 0;
+				margin: 15px;
+				padding: 25px;
+				/*display: none;*/
+			}
+			
+			#table_box{
+				position: relative;
+			}
+			#table_box tr{
+				position: relative;
+			}
+		</style>
+	</head>
+	<body>
+		
+		<form id="form1" runat="server" onsubmit="return false">
+		
+		<!-- 头部标题 -->
+		<nav class="bgcolor" id="top">
+			<div class="nav_img_box fl">
+				<div class="icon_goods_info logo_img fr"></div>
+			</div>
+			<div class="nav_p_box fl">
+				<p id="nav_title">产品介绍</p>
+			</div>
+			<div class="cb"></div>
+		</nav>
+		
+		<!-- 商品展示框 -->
+		<div class="goods_show_wrap bgcolor">
+			<div class="goods_show_box">
+				<div class="goods_show_left fl">
+					<div class="goods_show_left_top">
+						<img src=""/>
+					</div>
+					<ul runat="server" id="ul_img_box"></ul>
+				</div>
+				<div class="goods_info_right fl">
+					
+					<!-- 商品标题 -->
+					<div class="goods_info_title">
+						<h3 runat="server" id="pr_name"></h3>
+					</div>
+					<!-- 商品价格 -->
+					<div class="jjlg_price_box icon_goods_info">
+						<div class="jjlg_price">
+							<p class="fl">乐购价：<span>￥<span runat="server" id="jjlg_price"></span></span></p>
+						</div>
+					</div>
+					<!-- 商品附加信息 -->
+					<div class="goods_additional_info_box">
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">生产日期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="production_date"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">有效日期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="valid_date"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">保质期：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="shelf_life"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">海关备案编码：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="hg_code" ></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">可销售库存：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="enable_sales_num"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">实际库存：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="acture_sales_num"></div>
+							<div class="cb"></div>
+						</div>
+						<div class="goods_additional_info">
+							<div class="goods_additional_info_title fl">制单提审未发货数量：</div>
+							<div class="goods_additional_info_val fl" runat="server" id="wait_send_num"></div>
+							<div class="cb"></div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		
+		<!-- 商品信息展示框 -->
+		<div class="product_detail_wrap bgcolor" runat="server">
+			<!-- Tab切换 -->
+			<div id="tab_Bar">
+				<ul>
+					<li class="tab_selected" id="1">销售专用</li>
+					<li id="2">产品专用</li>
+					<li id="3">常见问题</li>
+					<li id="4">产品话术</li>
+				</ul>
+			</div>
+			
+			
+			<div class="tab_change_box" runat="server">
+				
+			
+			
+				<!-- 销售专用 -->
+				<div class="sales_special_use_box" data-li-id="1" runat="server">
+					<div class="sales_special_use fl" runat="server" id="sales_special_use"></div>
+					<div class="sales_special_use_floor fl">
+						<div class="sales_special_use_title_floor">
+							<ul>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 产品专用 -->
+				<div class="product_special_use_box" data-li-id="2" runat="server">
+					<div id="product_special_use" runat="server" class="product_special_use"></div>
+                    <div class="product_special_use_floor fl">
+						<div class="product_special_use_title_floor" style="position: relative;">
+							<ul></ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- 常见问题 -->
+				<div class="faq_box_wrap" data-li-id="3" runat="server">
+					<div class="faq_box">
+						<div class="faq_box_content">
+                            <div class="faq_box_title">
+                                <span>提问
+                                    <input type="text" name="" id="keyTxt" runat="server" value="" placeholder="请输入要提问的问题关键字" />
+                                </span>
+                                <span>分类 
+                                    <asp:DropDownList ID="listClassify" runat="server" 
+                                    DataTextField="DATA_NAME" DataValueField="DATA_CODE" AutoPostBack="True" 
+                                    onselectedindexchanged="listClassify_SelectedIndexChanged" 
+                                    ViewStateMode="Enabled">
+                                    </asp:DropDownList>
+                                </span>
+						        <asp:Button ID="btn_query" runat="server" Text="查询" />
+                            </div>
+
+                            <div id="table_box" runat="server"></div>
+						</div>
+					
+					</div>
+				</div>
+				
+				<!-- 产品话术 -->
+				<div class="product_words_box" data-li-id="4" runat="server">
+					<div class="product_words_li" id="product_words_li">
+						<ul>
+							<li class="product_words_li_first" id = "01"><span>首次购买话术</span></li>
+							<li class="product_words_li_more" id = "02"><span>多次购买话术</span></li>
+						</ul>
+					</div>
+					
+					<div class="product_words_content">
+						<div class="first_words" data-content-id = "1" runat="server" id="first_words">
+							首次话术
+						</div>
+						<div class="more_words" data-content-id = "2" runat="server" id="more_words">
+							多次话术
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		
+		<!-- 模态框 -->
+		<div class="bg_model_1">
+			<div class="product_photo_box">
+				<img src=""/>
+				<i id="icon_close" class="icon_goods_info"></i>
+			</div>
+		</div>
+		
+        <div class="bg_model_2">
+			<div class="open_model">
+				
+			</div>
+		</div>
+
+	    </form>
+		
+	</body>
+</html>
+<script type="text/javascript">
+
+
+
+
+    ///ajax事件
+    $("#btn_query").on("click", function () {
+        selectid = $("#listClassify").val();
+        console.log(selectid);
+        $.ajax({
+            type: "post",
+            url: "sales_use.aspx?prId=" + localStorage.prID + "&selectid=" + selectid,
+            dataType: "json",
+            data: { "action": "me" },
+            success: function (data) {
+                $("#table_box").val("");
+                console.log(data);
+                var str = "";
+                if (data.PR_QUE_ID == -1) {
+                    str += '<p style="text-align:center;">暂无数据</p>';
+                }
+                else {
+                    str = '<table><tr id="table_header"><th width="80px">序号</th><th width="80px">分类</th><th width="250px">提问</th><th width="490px">答案</th></tr>';
+                    var intercept = "";
+                    for (var i = 0; i < data.length; i++) {
+                        intercept = data[i].PR_QUE_ANSWER.toString();
+                        if (intercept.length > 100) {
+                            intercept = intercept.substring(0, 100) + "...";
+                        }
+                        console.log(intercept);
+                        str += '<tr><td style="text-align:center;">' + (i + 1) + '</td><td style="text-align:center;">' + data[i].PR_QUE_SORT_NAME + '</td><td>' + data[i].PR_QUE_CONTENT + '</td><td class="faq_box_answer" data-content="' + data[i].PR_QUE_ANSWER + '">' + intercept + '<span id="answer_open" class="answer_open" style="float: right;color: #4BA87B;font-size: 14px;">展开</span></td></tr>';
+                    }
+                }
+
+                str += '</table>';
+                $("#table_box").html(str);
+            },
+            error: function (xmlReq, err, c) {
+                //                    alert(err);
+                console.log("error");
+            }
+        });
+    })
+
+
+
+    window.onload = function () {
+        var left, height;
+        changeWindowSize();
+
+
+
+
+        var selectid = 0;
+
+        var flag = false;
+
+        if (!flag) {
+            aaa();
+        }
+
+        function aaa() {
+
+            var arr = $('.sales_special_use').find('h4').map(function (index, ele) {
+                return ele.innerHTML;
+            }).get();
+
+            var aaa = "";
+            for (var i = 0; i < arr.length; i++) {
+                var j = i + 1;
+                aaa += '<li><a href="#f' + j + '">' + arr[i] + '</a>';
+            }
+            $(".sales_special_use_title_floor ul").html(aaa);
+            $(".sales_special_use_title_floor ul li a").addClass("title_floor");
+
+
+
+            //产品专用
+            var arrPro = $('.product_special_use').find('h4').map(function (index, ele) {
+                return ele.innerHTML;
+            }).get();
+
+            var aaa2 = "";
+            for (var i = 0; i < arrPro.length; i++) {
+                var k = i + 1;
+                aaa2 += '<li><a href="#p' + k + '">' + arrPro[i] + '</a>';
+            }
+            $(".product_special_use_title_floor ul").html(aaa2);
+            $(".product_special_use_title_floor ul li a").addClass("title_floor");
+
+
+            flag = true;
+            console.log(aaa);
+            console.log(aaa2)
+        }
+
+
+        //给每个标题赋ID
+        setFloorID();
+        function setFloorID() {
+            //          var t = document.getElementsByTagName("h4");
+            //          for (var i = 0; i < t.length; i++) {
+            //              var k = i + 1;
+            //              t[i].id = "f" + k;
+            //          }
+
+
+            var sales = document.getElementById("sales_special_use");
+            var salesTitle = sales.getElementsByTagName("h4");
+
+            //          var t = document.getElementsByTagName("h4");
+            for (var i = 0; i < salesTitle.length; i++) {
+                var k = i + 1;
+                salesTitle[i].id = "f" + k;
+            }
+
+
+            var product = document.getElementById("product_special_use");
+            var productTitle = product.getElementsByTagName("h4");
+
+            console.log(productTitle)
+            //          var t = document.getElementsByTagName("h4");
+            for (var i = 0; i < productTitle.length; i++) {
+                var k = i + 1;
+                productTitle[i].id = "p" + k;
+            }
+
+        }
+
+        var prID = parseInt(GetQueryString("prId"));
+        if (prID != 0) {
+            localStorage.prID = prID;
+        }
+
+        //采用正则表达式获取地址栏参数
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]); return null;
+        }
+
+
+
+
+        //模态框2
+        //        console.log($(".faq_box_wrap .faq_box .faq_box_content #table_box tr td.faq_box_answer span.answer_open"))
+        $(document).on("click", "span.answer_open", function () {
+            var htmltext = $(this).parent().html();
+            $(".bg_model_2 .open_model").html(htmltext);
+            var data_content = $(this).parent().attr("data-content");
+            console.log("data_content=" + data_content);
+
+            var appendTxt = '<span class="answer_close" style="float: right;color: #4BA87B;font-size: 14px;">收起</span>';
+
+            $(".bg_model_2 .open_model").html(data_content).append(appendTxt);
+//            $(".bg_model_2 .open_model").find(".answer_open").html("收起").removeClass("answer_open").addClass("answer_close");
+
+            $(".bg_model_2").fadeIn();
+
+            $(".bg_model_2 .answer_close").on("click", function () {
+                $(this).parent().parent().fadeOut();
+            })
+        })
+
+
+        //相册大图显示相册小图的第一个
+        $(".goods_show_left_top img").attr("src", $(".goods_show_left li:eq(0) img").attr("src"));
+
+        //Tab切换事件
+        $("#tab_Bar li").on("click", function () {
+            $(this).addClass("tab_selected");
+            $(this).siblings().removeClass("tab_selected");
+            var num = parseInt($(this).attr("id"));
+            tabChange(num);
+        })
+
+        //tab切对应DIV切换
+        function tabChange(num) {
+            var id = document.getElementById("tab_Bar");
+            var param = id.getElementsByTagName("li");
+            console.log(param[num - 1].id)
+            if (param[num - 1].id == num) {
+                $('[data-li-id="' + num + '"]').css("display", "block");
+                console.log($('[data-li-id="' + num + '"]'));
+                $('[data-li-id="' + num + '"]').siblings().css("display", "none");
+                return;
+            }
+        }
+
+
+
+        //话术对应Tab切换
+        $(".product_words_li li").on("click", function () {
+            $(this).find("span").addClass("product_words_choose");
+            $(this).siblings().find("span").removeClass("product_words_choose");
+            console.log($(this))
+            var num = parseInt($(this).attr("id"));
+            tabWordsChange(num);
+        })
+
+        //话术
+        function tabWordsChange(num) {
+            var id = document.getElementById("product_words_li");
+            var paramLiTab = id.getElementsByTagName("li");
+            console.log(num)
+            console.log(paramLiTab[num - 1].id)
+            if (parseInt(paramLiTab[num - 1].id) == num) {
+                $('[data-content-id="' + num + '"]').css("display", "block");
+                console.log($('[data-content-id="' + num + '"]'));
+                $('[data-content-id="' + num + '"]').siblings().css("display", "none");
+                return;
+            }
+        }
+
+
+
+        //窗口大小改变事件
+        $(window).resize(function () {
+            changeWindowSize();
+        })
+
+        //富文本编辑器距浏览器左边窗口宽度
+        function changeWindowSize() {
+            //  		var right = $(".product_detail_wrap").offset().left;	
+            //	    	$(".sales_special_use_title_floor").css("right",right);
+            height = $(".product_detail_wrap").css("height");
+            $(".sales_special_use_floor").css("height", height);
+            // $(".product_special_use_floor").css("height", height);
+
+            left = (parseInt($(".sales_special_use_title_floor").offset().left) - 200) + "px";
+            //	    	($(".sales_special_use_title_floor").offset().left)-200px;   	
+            //	    	$(".sales_special_use_floor").css("right",0)
+        }
+
+
+
+
+        //当前楼层
+        var innerHTML = '<div class="icon_choose">◆</div>';
+
+        //楼层点击切换样式
+        $(".sales_special_use_title_floor li").on("click", function () {
+            $(this).addClass("title_choose");
+            $(this).find("a").append(innerHTML);
+            $(this).siblings().removeClass("title_choose");
+            $(this).siblings().find(".icon_choose").remove();
+        })
+
+        $(".product_special_use_title_floor li").on("click", function () {
+            $(this).addClass("title_choose");
+            $(this).find("a").append(innerHTML);
+            $(this).siblings().removeClass("title_choose");
+            $(this).siblings().find(".icon_choose").remove();
+        })
+
+    }
+
+    var htmlHeight, scrollTop, heightTop, bottomHeight;
+
+    //楼层事件
+    $(window).scroll(function () {
+        htmlHeight = $(window).height()
+        scrollTop = $(window).scrollTop();
+        heightTop = $(".sales_special_use").offset().top;
+        bottomHeight = $(".product_detail_wrap").offset().top;
+        var tab_Bar_height = $("#tab_Bar ul").height();
+        //        console.log("scrollTop:" + scrollTop);
+        //        console.log("bottomHeight:" + bottomHeight);
+        if (scrollTop > bottomHeight) {
+            $(".sales_special_use_title_floor").css("position", "fixed");
+            $(".sales_special_use_title_floor").css("top", "0");
+
+            $(".product_special_use_title_floor").css("position", "fixed");
+            $(".product_special_use_title_floor").css("top", "0");
+            //$(".product_special_use_floor").css("top", "0");
+            var leftP = $("#product_special_use").offset().left - 25 + "px";
+            console.log(leftP)
+            $(".product_special_use_title_floor").css("right", leftP);
+           // $(".product_special_use_floor").css("right", leftP);
+        }
+        else {
+            $(".sales_special_use_title_floor").css("position", "relative");
+            $(".sales_special_use_title_floor").css("top", "");
+            $(".sales_special_use_title_floor li").removeClass("title_choose").find(".icon_choose").remove();
+
+
+            $(".product_special_use_title_floor").css("position", "absolute");
+            $(".product_special_use_title_floor").css("top", "52px");
+            $(".product_special_use_title_floor").css("right", 0);
+
+           // $(".product_special_use_floor").css("top", "52px");
+            //$(".product_special_use_floor").css("right", 0);
+
+            $(".product_special_use_title_floor li").removeClass("title_choose").find(".icon_choose").remove();
+        }
+    });
+
+
+    //点击相册小图显示在相册大图
+    $(".goods_show_left li").on("click", function () {
+        $(".goods_show_left_top img").attr("src", $(this).find("img").attr("src"));
+    })
+
+    //点击相册大图弹出模态框
+    $(".goods_show_left_top").on("click", function () {
+        $(".bg_model_1 img").attr("src", $(this).find("img").attr("src"));
+        $(".bg_model_1").fadeIn();
+    })
+
+    $(".bg_model_1 i").on("click", function () {
+        $(".bg_model_1").fadeOut();
+    })
+
+
+
+</script>
+

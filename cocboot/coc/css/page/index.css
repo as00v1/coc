@@ -1,0 +1,122 @@
+body {
+	position: relative;
+	height: 100%;
+	background: url("../../img/games_clash_boom_still.jpg");
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+
+html {
+	height: 100%;
+}
+
+#searchBox {
+	padding-top: 50px;
+	position: relative;
+	height: 100%;
+}
+
+
+#section41 {
+	padding-top: 50px;
+	height: 500px;
+	color: #fff;
+	background-color: #00bcd4;
+	height: 100%;
+}
+
+#section42 {
+	padding-top: 50px;
+	height: 500px;
+	color: #fff;
+	background-color: #009688;
+	height: 100%;
+}
+
+/*垂直居中*/
+.caption-data {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	/*z-index: 20;*/
+	/*text-align: center;*/
+	/*-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);*/
+	transform: translate(-50%, -50%);
+}
+
+.form-control {
+	border: 3px solid red;
+}
+
+.pr45{
+	
+}
+
+/*.search-box {
+	float: left;
+	border: none;
+	background: none;
+	height: 40px;
+	line-height: 30px;
+	width: 100%;
+	text-indent: 32px;
+}*/
+.search-box-icon-wrap {
+	position: absolute;
+	right: 0;
+	z-index:100;
+	width: 50px;
+	height: 50px;
+}
+.search-box {
+	position: relative;
+}
+
+.icon-search {
+	position: absolute;
+	left: 0;
+	z-index:5;
+	margin: 7px 5px;
+	background-image: url("../../img/search.png");
+	/*引入图片图片*/
+	background-repeat: no-repeat;
+	/*设置图片不重复*/
+	background-position: 0px 0px;
+	/*图片显示的位置*/
+	width: 32px;
+	/*设置图片显示的宽*/
+	height: 32px;
+	/*图片显示的高*/
+}
+.icon-list {
+	display: inline-block;
+	right: 0;
+	float: right;
+	margin: 15px 6px;
+}
+.show-type-box {
+	position: absolute;
+	right: 0;
+	z-index:5;
+	margin: 7px 5px;
+}
+/*.icon_list_style {
+	margin-top: 25px;
+	margin-left: 30px;
+}*/
+.show-type-box p {
+	border-bottom: 1px solid #eee;
+	margin: 0;
+}
+.mr100{
+	margin: 100px auto;
+}
+
+#searchbtn{
+	background-image: url(../../img/search (2).png);
+	width: 32px;
+	/*设置图片显示的宽*/
+	height: 32px;
+	/*图片显示的高*/
+}
